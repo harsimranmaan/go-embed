@@ -1,3 +1,3 @@
-module github.com/harsimranmaan/go-mod
+module github.com/harsimranmaan/go-embed
 
 go 1.16

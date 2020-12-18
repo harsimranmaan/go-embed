@@ -30,12 +30,15 @@ func main() {
 	var staticFS = http.FS(staticFiles)
 	fs := http.FileServer(staticFS)
 
+	// Serve static files
 	http.Handle("/static/", fs)
+	// Handle all other requests
 	http.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 		var path = req.URL.Path
 		log.Println("Serving request for path", path)
 		w.Header().Add("Content-Type", "text/html")
 
+		// respond with the output of template execution
 		t.Execute(w, struct {
 			Title    string
 			Response string
@@ -44,6 +47,7 @@ func main() {
 	})
 
 	log.Println("Listening on :3000...")
+	// start the server
 	err = http.ListenAndServe(":3000", nil)
 	if err != nil {
 		log.Fatal(err)
