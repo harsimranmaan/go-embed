@@ -17,7 +17,7 @@ func main() {
 	//go:embed templates
 	var indexHTML embed.FS
 
-	// Not the call to ParseFs instead of Parse
+	// Note the call to ParseFS instead of Parse
 	t, err := template.ParseFS(indexHTML, "templates/index.html.tmpl")
 	if err != nil {
 		log.Fatal(err)
