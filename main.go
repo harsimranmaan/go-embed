@@ -26,6 +26,7 @@ func main() {
 	//go:embed static
 	var staticFiles embed.FS
 
+	// http.FS can be used to create a http Filesystem
 	var staticFS = http.FS(staticFiles)
 	fs := http.FileServer(staticFS)
 
