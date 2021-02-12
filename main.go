@@ -7,24 +7,26 @@ import (
 	"net/http"
 )
 
+// The go embed directive statement must be outside of function body
+
+// Embed the file content as string.
+//go:embed title.txt
+var title string
+
+// Embed the entire directory.
+//go:embed templates
+var indexHTML embed.FS
+
+//go:embed static
+var staticFiles embed.FS
+
 func main() {
-
-	// Embed the file content as string
-	//go:embed title.txt
-	var title string
-
-	// Embed the entire directory. The path is relative to the package directory
-	//go:embed templates
-	var indexHTML embed.FS
 
 	// Note the call to ParseFS instead of Parse
 	t, err := template.ParseFS(indexHTML, "templates/index.html.tmpl")
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	//go:embed static
-	var staticFiles embed.FS
 
 	// http.FS can be used to create a http Filesystem
 	var staticFS = http.FS(staticFiles)
